@@ -5,10 +5,10 @@ using namespace std;
 const int SCREEN_WIDTH = 900;
 const int SCREEN_HEIGHT = 512;
 
-double poli_func(double x, double a, int n) {
+double poli_func(double x, double *mas_a, int n) {
 	double y = 0;
 	for (int i = 0; i < n; i++) {
-		y += pow(x, n - i) * a;
+		y += pow(x, i) * mas_a[i];
 	}
 	return y;
 }
@@ -45,12 +45,15 @@ double cos_func(double x, double a, double b, double c, double d) {
 
 void graphic()
 {
-	//окно
-	SDL_Window* window = NULL;
-	//Поверхность окна
-	SDL_Surface* screenSurface = NULL;
-	//Включим SDL
-	if (SDL_Init(SDL_INIT_VIDEO) < 0)
+	int x0 = SCREEN_WIDTH / 2, y0 = SCREEN_HEIGHT/2;
+	int q;
+	cout << "Выберите тип функции:" << endl << "1-Полиномиальная функция" << endl << "2-Степенная функция" << endl << "3-Показательная функция" << endl << "4-Логарифмическая функция" << endl << "5-Синусоидальная функция" << endl << "6-Косинусоидальная функция";
+	cin >> q;
+	double* mas_a;
+	double x, a, b, c, d, y, n;
+	SDL_Window* window = NULL;//окно
+	SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, 0);
+	if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
 	{
 		printf("SDL не смог запуститься! SDL_Error: %s\n", SDL_GetError());
 	}
@@ -63,30 +66,37 @@ void graphic()
 		}
 		else
 		{
-			//Получаем поверхность
-			screenSurface = SDL_GetWindowSurface(window);
+			SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
+			SDL_RenderDrawLine(renderer, 0, SCREEN_HEIGHT / 2, SCREEN_WIDTH, SCREEN_HEIGHT / 2);
+			SDL_RenderDrawLine(renderer, SCREEN_WIDTH/2, SCREEN_HEIGHT, SCREEN_WIDTH/2, 0);
+			bool check = true;
+			do {
+				cin >> q;
+				switch (q) {
+				case 0: check = false; break;
+				case 1: 
+					cin >> n;
+					mas_a = (double*)malloc(n * sizeof(double));
+					for (int i = 0; i < n; i++) {
+						cin >> mas_a[i];
+						x = i;
+						y = poli_func(x, mas_a, n);
+					}
+					break;
+				case 2: 
+					break;
+				case 3: ;
+					break;
+				case 4: ;
+					break;
+				case 5: ;
+					break;
+				case 6:functions_calc_menu();
+					break;
+				default: cout << "Херню ввел" << endl;
+				}
+			} while (check);
 
-			//Заполняем ее белым цветом
-			SDL_FillRect(screenSurface, NULL, SDL_MapRGB(screenSurface->format, 0xFF, 0xFF, 0xFF));
-
-			//Обновляем поверхность
-			SDL_UpdateWindowSurface(window);
-			SDL_FreeSurface(screenSurface);
-			SDL_Surface* myImage = SDL_LoadBMP("Plan.bmp");
-			if (myImage == NULL) {
-				printf("error");
-			}
-			SDL_Rect dest;
-			dest.x = 0;
-			dest.y = 0;
-			SDL_FillRect(screenSurface, NULL, SDL_MapRGB(screenSurface->format, 0xFF, 0xFF, 0xFF));
-			SDL_SetColorKey(myImage, SDL_TRUE, SDL_MapRGB(myImage->format, 255, 255, 255));
-			SDL_BlitSurface(myImage, NULL, screenSurface, &dest);
-			SDL_UpdateWindowSurface(window);
-
-
-
-			//Hack to get window to stay up
 			SDL_Event e;
 			bool quit = false;
 			while (quit == false) {
@@ -101,24 +111,4 @@ void graphic()
 
 	//Выход из SDL
 	SDL_Quit();
-}
-
-void functions_calc_menu() {
-	int q;
-	bool check = true;
-	do {
-		cin >> q;
-		switch (q) {
-		case 0: check = false; break;
-		case 1: integral();
-			continue;
-		case 2: graphic();
-			continue;
-		case 3://mnogochlen_calc();
-			continue;
-		case 4://chance_calc();
-			continue;
-		default: cout << "Неверный ввод" << endl;
-		}
-	} while (check);
 }

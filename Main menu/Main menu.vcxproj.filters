@@ -18,7 +18,7 @@
     <ClCompile Include="Main menu.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="functions_calc.cpp">
+    <ClCompile Include="Graphic.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="combinatorics.cpp">
@@ -28,6 +28,12 @@
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="statics_ver.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Functions_calc_menu.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Integrals.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
