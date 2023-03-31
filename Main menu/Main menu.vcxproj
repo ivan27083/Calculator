@@ -129,12 +129,15 @@
   <ItemGroup>
     <ClCompile Include="combinatorics.cpp" />
     <ClCompile Include="Drobi_calc.cpp" />
+    <ClCompile Include="Extremum.cpp" />
     <ClCompile Include="Graphic.cpp" />
     <ClCompile Include="Functions_calc_menu.cpp" />
     <ClCompile Include="Integrals.cpp" />
+    <ClCompile Include="Korni.cpp" />
     <ClCompile Include="Main menu.cpp" />
     <ClCompile Include="matrica.cpp" />
     <ClCompile Include="statics_ver.cpp" />
+    <ClCompile Include="Test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="chance_calc.h" />

@@ -6,17 +6,17 @@ void functions_calc_menu() {
 	int q;
 	bool check = true;
 	do {
-		cout << "Выберите операцию над функцией:" << endl << "1 - Вычисление определенного интеграла на отрезке" << endl << "2 - Построение графика функции" << endl << "1 - Вычисление определенного интеграла на отрезке" << endl << "1 - Вычисление определенного интеграла на отрезке";
+		cout << "Выберите операцию над функцией:" << endl << "1 - Вычисление определенного интеграла на отрезке" << endl << "2 - Построение графика функции" << endl << "3 - Поиск корня y=0 на отрезке" << endl << "4 - Поиск экстремумов на отрезке";
 		cin >> q;
 		switch (q) {
 		case 0: check = false; break;
 		case 1: integral();
 			continue;
-		case 2: //graphic();
+		case 2: graphic();
 			continue;
-		case 3://korni();
+		case 3:korni();
 			continue;
-		case 4://extr_func();
+		case 4:extr_func();
 			continue;
 		default: cout << "Неверный ввод" << endl;
 		}

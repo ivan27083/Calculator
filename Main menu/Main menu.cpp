@@ -7,12 +7,13 @@
 #include "functions_calc.h"// Семин
 #include "chance_calc.h"//Лушина
 
-/*int main(int argc, char** argv)
+int main(int argc, char** argv)
 {
     setlocale(LC_ALL, "Rus");
     int q;
     bool check = true;
     do {
+        cout << "Выберите калькулятор(1-6)" << endl << "1 - Матричный калькулятор" << endl << "2 - Калькулятор формул комбинаторики" << endl << "3 - Калькулятор многочленов" << endl << "4 - Калькулятор теории вероятностей и математической статистики" << endl << "5 - Калькулятор обыкнвенных дробей" << endl << "6 - Калькулятор для работы с функциями" << endl;
         cin >> q;
         switch (q) {
         case 0: check = false; break;
@@ -20,7 +21,7 @@
             continue;
         case 2: menu_combinatorics();
             continue;
-        case 3: menu_polynomials();
+        case 3: //menu_polynomials();
             continue;
         case 4: menu_statist_ver();
             continue;
@@ -32,4 +33,4 @@
         }
     } while (check);
     return 0;
-}*/
+}
