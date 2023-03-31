@@ -1,11 +1,11 @@
 ﻿#include <iostream>
 #include <SDL.h>
 #include "matrix_calc.h" // Клековкина
-#include "combinations_calc.h"
+#include "combinations_calc.h"//Зайцева
 #include "mnogochlen_calc.h"
-#include "division_calc.h"
+#include "division_calc.h"//Лушина и Зайцева
 #include "functions_calc.h"// Семин
-#include "chance_calc.h"
+#include "chance_calc.h"//Лушина
 
 int main(int argc, char** argv)
 {
@@ -28,7 +28,7 @@ int main(int argc, char** argv)
             continue;
         case 6:functions_calc_menu();
             continue;
-        default: cout << "Херню ввел" << endl;
+        default: cout << "Введено некорректное значение" << endl;
         }
     } while (check);
     return 0;
