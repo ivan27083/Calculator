@@ -128,6 +128,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="combinatorics.cpp" />
+    <ClCompile Include="Drobi_calc.cpp" />
     <ClCompile Include="Graphic.cpp" />
     <ClCompile Include="Functions_calc_menu.cpp" />
     <ClCompile Include="Integrals.cpp" />

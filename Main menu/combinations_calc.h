@@ -7,4 +7,4 @@ void placement_without_repetitions();
 void placement_with_repetitions();
 void combination_without_repetitions();
 void combination_with_repetitions();
-int menu_combinatorics();
+void menu_combinatorics();
