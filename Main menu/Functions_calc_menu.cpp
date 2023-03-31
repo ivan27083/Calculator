@@ -12,7 +12,7 @@ void functions_calc_menu() {
 		case 0: check = false; break;
 		case 1: integral();
 			continue;
-		case 2: graphic();
+		case 2: //graphic();
 			continue;
 		case 3://korni();
 			continue;

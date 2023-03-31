@@ -43,35 +43,39 @@ double cos_func(double x, double a, double b, double c, double d) {
 	return y;
 }
 
-void graphic()
+int main(int argc, char** argv)
 {
+	setlocale(LC_ALL, "Rus");
 	int x0 = SCREEN_WIDTH / 2, y0 = SCREEN_HEIGHT/2;
 	int q;
 	cout << "Выберите тип функции:" << endl << "1-Полиномиальная функция" << endl << "2-Степенная функция" << endl << "3-Показательная функция" << endl << "4-Логарифмическая функция" << endl << "5-Синусоидальная функция" << endl << "6-Косинусоидальная функция";
 	cin >> q;
 	double* mas_a;
 	double x, a, b, c, d, y, n;
-	SDL_Window* window = NULL;//окно
-	SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, 0);
+	SDL_Window* window = NULL;
 	if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
 	{
 		printf("SDL не смог запуститься! SDL_Error: %s\n", SDL_GetError());
 	}
 	else
 	{		//Создаем окно
-		window = SDL_CreateWindow(u8"Функция", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+		window = SDL_CreateWindow(u8"Функция", 100, 100, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 		if (window == NULL)
 		{
 			printf("Окно не может быть создано! SDL_Error: %s\n", SDL_GetError());
 		}
 		else
 		{
+			SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, 0);
+			SDL_SetRenderDrawColor(renderer, 255, 255, 255, 0);
+			SDL_RenderClear(renderer);
+			SDL_RenderPresent(renderer);
 			SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
 			SDL_RenderDrawLine(renderer, 0, SCREEN_HEIGHT / 2, SCREEN_WIDTH, SCREEN_HEIGHT / 2);
 			SDL_RenderDrawLine(renderer, SCREEN_WIDTH/2, SCREEN_HEIGHT, SCREEN_WIDTH/2, 0);
+			SDL_RenderPresent(renderer);
 			bool check = true;
 			do {
-				cin >> q;
 				switch (q) {
 				case 0: check = false; break;
 				case 1: 
@@ -79,11 +83,15 @@ void graphic()
 					mas_a = (double*)malloc(n * sizeof(double));
 					for (int i = 0; i < n; i++) {
 						cin >> mas_a[i];
+					}
+					for (double i = -3; i <= 3; i += 0.01) {
 						x = i;
 						y = poli_func(x, mas_a, n);
+						SDL_RenderDrawPoint(renderer, x0 + x, y0 - y);
 					}
+					SDL_RenderPresent(renderer);
 					break;
-				case 2: 
+				case 2:;
 					break;
 				case 3: ;
 					break;
@@ -91,11 +99,11 @@ void graphic()
 					break;
 				case 5: ;
 					break;
-				case 6:functions_calc_menu();
+				case 6: ;
 					break;
-				default: cout << "Херню ввел" << endl;
+				default: cout << "Ошибка ввода" << endl;
 				}
-			} while (check);
+			} while (q<0 || q>6);
 
 			SDL_Event e;
 			bool quit = false;
@@ -104,11 +112,12 @@ void graphic()
 					if (e.type == SDL_QUIT) quit = true;
 				}
 			}
+			SDL_DestroyRenderer(renderer);
+			//И удаляем из памяти окно
+			SDL_DestroyWindow(window);
+			//Выход из SDL
+			SDL_Quit();
 		}
 	}
-	//И удаляем из памяти окно
-	SDL_DestroyWindow(window);
-
-	//Выход из SDL
-	SDL_Quit();
+	return 0;
 }

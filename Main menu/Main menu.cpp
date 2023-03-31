@@ -7,7 +7,7 @@
 #include "functions_calc.h"// Семин
 #include "chance_calc.h"
 
-int main(int argc, char** argv)
+/*int main(int argc, char** argv)
 {
     setlocale(LC_ALL, "Rus");
     int q;
@@ -32,4 +32,4 @@ int main(int argc, char** argv)
         }
     } while (check);
     return 0;
-}
+}*/
