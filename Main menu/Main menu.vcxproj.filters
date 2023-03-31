@@ -42,9 +42,6 @@
     <ClCompile Include="Korni.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Test.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="matrica.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
