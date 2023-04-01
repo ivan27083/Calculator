@@ -138,7 +138,6 @@
     <ClCompile Include="matrica.cpp" />
     <ClCompile Include="mnogochlen_calc.cpp" />
     <ClCompile Include="statics_ver.cpp" />
-    <ClCompile Include="Test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="chance_calc.h" />
