@@ -1,253 +1,425 @@
 #include "matrix_calc.h"
 #include <iostream>
 using namespace std;
-
-void menu_m() {
+struct Minor{
+    double minor[100][100];
+    int n;
+};
+void menu_m(){
     int k;
-    cout << "Ââåäèòå 1 èëè 2 èëè 3 èëè 4 èëè 5 èëè 6 èëè 7 èëè 8 " << endl;
-    do {
+    bool check = true;
+    cout <<"Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ 0 - Ð´Ð»Ñ Ð²Ñ‹Ñ…Ð¾Ð´Ð°, 1 - ÑÐ»Ð¾Ð¶ÐµÐ½Ð¸Ðµ Ð¼Ð°Ñ‚Ñ€Ð¸Ñ†, 2 - Ð²Ñ‹Ñ‡Ð¸Ñ‚Ð°Ð½Ð¸Ðµ, 3 - ÑƒÐ¼Ð½Ð¾Ð¶ÐµÐ½Ð¸Ðµ, 4 - ÑƒÐ¼Ð½Ð¾Ð¶ÐµÐ½Ð¸Ðµ Ð¼Ð°Ñ‚Ñ€Ð¸Ñ†Ñ‹ Ð½Ð° Ñ‡Ð¸ÑÐ»Ð¾, 5 - ÑÐ»Ð¾Ð¶ÐµÐ½Ð¸Ðµ Ð¼Ð°Ñ‚Ñ€Ð¸Ñ†Ñ‹ Ñ Ñ‡Ð¸ÑÐ»Ð¾Ð¼, 6 - Ñ‚Ñ€Ð°Ð½ÑÐ¿Ð¾Ð½Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ðµ Ð¼Ð°Ñ‚Ñ€Ð¸Ñ†Ñ‹, 7 - Ð¾Ð±Ñ€Ð°Ñ‚Ð½Ð°Ñ Ð¼Ð°Ñ‚Ñ€Ð¸Ñ†Ð°, 8 - Ð¾Ð¿Ñ€ÐµÐ´ÐµÐ»Ð¸Ñ‚ÐµÐ»ÑŒ " << endl;
+    do{
         cin >> k;
-        if (k != 1 && k != 2 && k != 3 && k != 4 && k != 5 && k != 6 && k != 7 && k != 8) cout << "Ââåäèòå ñïîñîá 1 èëè 2";
-    } while (k != 1 && k != 2 && k != 3 && k != 4 && k != 5 && k != 6 && k != 7 && k != 8);
-    switch (k) {
-    case 1: {plusm(); break; }
-    case 2: {minusm(); break; }
-    case 4: {umnch(); break; }
-    case 3: {umnm(); break; }
-    case 6: {transp(); break; }
-    }
+        if (k != 0 && k != 1 && k != 2 && k != 3 && k != 4 && k != 5 && k != 6 && k != 7 && k != 8) cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ 0 - Ð´Ð»Ñ Ð²Ñ‹Ñ…Ð¾Ð´Ð°, 1 - ÑÐ»Ð¾Ð¶ÐµÐ½Ð¸Ðµ Ð¼Ð°Ñ‚Ñ€Ð¸Ñ†, 2 - Ð²Ñ‹Ñ‡Ð¸Ñ‚Ð°Ð½Ð¸Ðµ, 3 - ÑƒÐ¼Ð½Ð¾Ð¶ÐµÐ½Ð¸Ðµ, 4 - ÑƒÐ¼Ð½Ð¾Ð¶ÐµÐ½Ð¸Ðµ Ð¼Ð°Ñ‚Ñ€Ð¸Ñ†Ñ‹ Ð½Ð° Ñ‡Ð¸ÑÐ»Ð¾, 5 - ÑÐ»Ð¾Ð¶ÐµÐ½Ð¸Ðµ Ð¼Ð°Ñ‚Ñ€Ð¸Ñ†Ñ‹ Ñ Ñ‡Ð¸ÑÐ»Ð¾Ð¼, 6 - Ñ‚Ñ€Ð°Ð½ÑÐ¿Ð¾Ð½Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ðµ Ð¼Ð°Ñ‚Ñ€Ð¸Ñ†Ñ‹, 7 - Ð¾Ð±Ñ€Ð°Ñ‚Ð½Ð°Ñ Ð¼Ð°Ñ‚Ñ€Ð¸Ñ†Ð°, 8 - Ð¾Ð¿Ñ€ÐµÐ´ÐµÐ»Ð¸Ñ‚ÐµÐ»ÑŒ";
+    }while(k != 0 && k != 1 && k != 2 && k != 3 && k != 4 && k != 5 && k != 6 && k != 7 && k != 8);
+    do{
+    switch(k){
+        case 0: {check = false; break;}
+        case 1: {plusm(); continue;;}
+        case 2: {minusm(); continue;;}
+        case 3: {umnm();continue;;}
+        case 4: {umnch();continue;;}
+        case 5:{plus_minus_ch();continue;;}
+        case 6: {transp();continue;;}
+        case 7: {inversem();continue;;}
+        case 8:{opredm();continue;;}
+    }}while(check);
 }
-void plusm() {
+void plusm(){
     int n, m, n1, m1;
-    int* arr;
-    int* arr1;
-    cout << "Ââåäèòå êîëè÷åñòâî ñòðîê 1 ìàòðèöû" << endl;
-    do {
+    double *arr;
+    double *arr1;
+    cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ ÐºÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ ÑÑ‚Ñ€Ð¾Ðº 1 Ð¼Ð°Ñ‚Ñ€Ð¸Ñ†Ñ‹"<<endl;
+    do{
         cin >> n;
-        if (n <= 0) cout << "Ââåäèòå êîëè÷åñòâî ñòðîê 1 ìàòðèöû" << endl;
-    } while (n <= 0);
-    cout << "Ââåäèòå êîëè÷åñòâî ñòîëáöîâ 1 ìàòðèöû" << endl;
-    do {
+        if (n <= 0) cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ ÐºÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ ÑÑ‚Ñ€Ð¾Ðº 1 Ð¼Ð°Ñ‚Ñ€Ð¸Ñ†Ñ‹"<<endl;
+    }while(n <= 0);
+    cout <<"Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ ÐºÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ ÑÑ‚Ð¾Ð»Ð±Ñ†Ð¾Ð² 1 Ð¼Ð°Ñ‚Ñ€Ð¸Ñ†Ñ‹" <<endl;
+    do{
         cin >> m;
-        if (m <= 0) cout << "Ââåäèòå êîëè÷åñòâî ñòîëáöîâ 1 ìàòðèöû" << endl;
-    } while (m <= 0);
-    arr = (int*)malloc(n * m * sizeof(int));
-    cout << "Ââåäèòå çíà÷åíèÿ 1 ìàòðèöû" << endl;
+        if (m <= 0) cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ ÐºÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ ÑÑ‚Ð¾Ð»Ð±Ñ†Ð¾Ð² 1 Ð¼Ð°Ñ‚Ñ€Ð¸Ñ†Ñ‹"<<endl;
+    }while(m <= 0);
+    arr = (double*)malloc(n * m * sizeof(double));
+    cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ñ 1 Ð¼Ð°Ñ‚Ñ€Ð¸Ñ†Ñ‹"<<endl;
     for (int i = 0; i < n; i++)
-        for (int j = 0; j < m; j++) {
+        for (int j = 0; j < m; j++){
             cin >> *(arr + i * m + j);
         }
-    cout << "Ââåäèòå êîëè÷åñòâî ñòðîê 2 ìàòðèöû" << endl;
-    do {
+    cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ ÐºÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ ÑÑ‚Ñ€Ð¾Ðº 2 Ð¼Ð°Ñ‚Ñ€Ð¸Ñ†Ñ‹"<<endl;
+    do{
         cin >> n1;
-        if (n1 <= 0) cout << "Ââåäèòå êîëè÷åñòâî ñòðîê 2 ìàòðèöû" << endl;
-    } while (n1 <= 0);
-    cout << "Ââåäèòå êîëè÷åñòâî ñòîëáöîâ 2 ìàòðèöû" << endl;
-    do {
+        if (n1 <= 0) cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ ÐºÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ ÑÑ‚Ñ€Ð¾Ðº 2 Ð¼Ð°Ñ‚Ñ€Ð¸Ñ†Ñ‹"<<endl;
+    }while(n1 <= 0);
+    cout <<"Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ ÐºÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ ÑÑ‚Ð¾Ð»Ð±Ñ†Ð¾Ð² 2 Ð¼Ð°Ñ‚Ñ€Ð¸Ñ†Ñ‹" <<endl;
+    do{
         cin >> m1;
-        if (m1 <= 0) cout << "Ââåäèòå êîëè÷åñòâî ñòîëáöîâ 2 ìàòðèöû" << endl;
-    } while (m1 <= 0);
-    arr1 = (int*)malloc(n1 * m1 * sizeof(int));
-    cout << "Ââåäèòå çíà÷åíèÿ 2 ìàòðèöû" << endl;
+        if (m1 <= 0) cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ ÐºÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ ÑÑ‚Ð¾Ð»Ð±Ñ†Ð¾Ð² 2 Ð¼Ð°Ñ‚Ñ€Ð¸Ñ†Ñ‹"<<endl;
+    }while(m1 <= 0);
+    arr1 = (double*)malloc(n1 * m1 * sizeof(double));
+    cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ñ 2 Ð¼Ð°Ñ‚Ñ€Ð¸Ñ†Ñ‹"<<endl;
     for (int i = 0; i < n1; i++)
-        for (int j = 0; j < m1; j++) {
+        for (int j = 0; j < m1; j++){
             cin >> *(arr1 + i * m + j);
         }
-    if (n1 == n && m == m1) {
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < m; j++) {
+    if (n1 == n && m == m1){
+        for (int i = 0; i < n; i++){
+            for (int j = 0; j < m; j++){
                 *(arr + i * m + j) += *(arr1 + i * m + j);
-            }
-        }
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < m; j++) {
-                cout << *(arr + i * m + j) << " ";
-            }
+            }}
+        for (int i = 0; i < n; i++){
+            for (int j = 0; j < m; j++){
+                cout << *(arr + i * m + j) << " ";}
             cout << endl;
         }
     }
-    else {
-        cout << "Ââåäèòå îäèíàêîâûå ïî ðàçìåðó ìàòðèöû!!!!" << endl;
+    else{
+        cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð¾Ð´Ð¸Ð½Ð°ÐºÐ¾Ð²Ñ‹Ðµ Ð¿Ð¾ Ñ€Ð°Ð·Ð¼ÐµÑ€Ñƒ Ð¼Ð°Ñ‚Ñ€Ð¸Ñ†Ñ‹!!!!"<<endl;
         plusm();
     }
-
+    delete [] arr1;
+    delete [] arr;
 }
-void minusm() {
+void minusm(){
     int n, m, n1, m1;
-    int* arr;
-    int* arr1;
-    cout << "Ââåäèòå êîëè÷åñòâî ñòðîê 1 ìàòðèöû" << endl;
-    do {
+    double *arr;
+    double *arr1;
+    cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ ÐºÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ ÑÑ‚Ñ€Ð¾Ðº 1 Ð¼Ð°Ñ‚Ñ€Ð¸Ñ†Ñ‹"<<endl;
+    do{
         cin >> n;
-        if (n <= 0) cout << "Ââåäèòå êîëè÷åñòâî ñòðîê 1 ìàòðèöû" << endl;
-    } while (n <= 0);
-    cout << "Ââåäèòå êîëè÷åñòâî ñòîëáöîâ 1 ìàòðèöû" << endl;
-    do {
+        if (n <= 0) cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ ÐºÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ ÑÑ‚Ñ€Ð¾Ðº 1 Ð¼Ð°Ñ‚Ñ€Ð¸Ñ†Ñ‹"<<endl;
+    }while(n <= 0);
+    cout <<"Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ ÐºÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ ÑÑ‚Ð¾Ð»Ð±Ñ†Ð¾Ð² 1 Ð¼Ð°Ñ‚Ñ€Ð¸Ñ†Ñ‹" <<endl;
+    do{
         cin >> m;
-        if (m <= 0) cout << "Ââåäèòå êîëè÷åñòâî ñòîëáöîâ 1 ìàòðèöû" << endl;
-    } while (m <= 0);
-    arr = (int*)malloc(n * m * sizeof(int));
-    cout << "Ââåäèòå çíà÷åíèÿ 1 ìàòðèöû" << endl;
+        if (m <= 0) cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ ÐºÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ ÑÑ‚Ð¾Ð»Ð±Ñ†Ð¾Ð² 1 Ð¼Ð°Ñ‚Ñ€Ð¸Ñ†Ñ‹"<<endl;
+    }while(m <= 0);
+    arr = (double*)malloc(n * m * sizeof(double));
+    cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ñ 1 Ð¼Ð°Ñ‚Ñ€Ð¸Ñ†Ñ‹"<<endl;
     for (int i = 0; i < n; i++)
-        for (int j = 0; j < m; j++) {
+        for (int j = 0; j < m; j++){
             cin >> *(arr + i * m + j);
         }
-    cout << "Ââåäèòå êîëè÷åñòâî ñòðîê 2 ìàòðèöû" << endl;
-    do {
+    cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ ÐºÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ ÑÑ‚Ñ€Ð¾Ðº 2 Ð¼Ð°Ñ‚Ñ€Ð¸Ñ†Ñ‹"<<endl;
+    do{
         cin >> n1;
-        if (n1 <= 0) cout << "Ââåäèòå êîëè÷åñòâî ñòðîê 2 ìàòðèöû" << endl;
-    } while (n1 <= 0);
-    cout << "Ââåäèòå êîëè÷åñòâî ñòîëáöîâ 2 ìàòðèöû" << endl;
-    do {
+        if (n1 <= 0) cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ ÐºÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ ÑÑ‚Ñ€Ð¾Ðº 2 Ð¼Ð°Ñ‚Ñ€Ð¸Ñ†Ñ‹"<<endl;
+    }while(n1 <= 0);
+    cout <<"Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ ÐºÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ ÑÑ‚Ð¾Ð»Ð±Ñ†Ð¾Ð² 2 Ð¼Ð°Ñ‚Ñ€Ð¸Ñ†Ñ‹" <<endl;
+    do{
         cin >> m1;
-        if (m1 <= 0) cout << "Ââåäèòå êîëè÷åñòâî ñòîëáöîâ 2 ìàòðèöû" << endl;
-    } while (m1 <= 0);
-    arr1 = (int*)malloc(n1 * m1 * sizeof(int));
-    cout << "Ââåäèòå çíà÷åíèÿ 2 ìàòðèöû" << endl;
+        if (m1 <= 0) cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ ÐºÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ ÑÑ‚Ð¾Ð»Ð±Ñ†Ð¾Ð² 2 Ð¼Ð°Ñ‚Ñ€Ð¸Ñ†Ñ‹"<<endl;
+    }while(m1 <= 0);
+    arr1 = (double*)malloc(n1 * m1 * sizeof(double));
+    cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ñ 2 Ð¼Ð°Ñ‚Ñ€Ð¸Ñ†Ñ‹"<<endl;
     for (int i = 0; i < n1; i++)
-        for (int j = 0; j < m1; j++) {
+        for (int j = 0; j < m1; j++){
             cin >> *(arr1 + i * m + j);
         }
-    if (n1 == n && m == m1) {
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < m; j++) {
+    if (n1 == n && m == m1){
+        for (int i = 0; i < n; i++){
+            for (int j = 0; j < m; j++){
                 *(arr + i * m + j) -= *(arr1 + i * m + j);
-            }
-        }
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < m; j++) {
-                cout << *(arr + i * m + j) << " ";
-            }
+            }}
+        for (int i = 0; i < n; i++){
+            for (int j = 0; j < m; j++){
+                cout << *(arr + i * m + j) << " ";}
             cout << endl;
         }
     }
-    else {
-        cout << "Ââåäèòå îäèíàêîâûå ïî ðàçìåðó ìàòðèöû!!!!" << endl;
+    else{
+        cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð¾Ð´Ð¸Ð½Ð°ÐºÐ¾Ð²Ñ‹Ðµ Ð¿Ð¾ Ñ€Ð°Ð·Ð¼ÐµÑ€Ñƒ Ð¼Ð°Ñ‚Ñ€Ð¸Ñ†Ñ‹!!!!"<<endl;
         minusm();
     }
+    delete [] arr1;
+    delete [] arr;
 }
-void umnch() {
+void umnch(){
     int n, m, k;
-    int* arr;
-    cout << "Ââåäèòå êîëè÷åñòâî ñòðîê 1 ìàòðèöû" << endl;
-    do {
+    double *arr;
+    cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ ÐºÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ ÑÑ‚Ñ€Ð¾Ðº 1 Ð¼Ð°Ñ‚Ñ€Ð¸Ñ†Ñ‹"<<endl;
+    do{
         cin >> n;
-        if (n <= 0) cout << "Ââåäèòå êîëè÷åñòâî ñòðîê 1 ìàòðèöû" << endl;
-    } while (n <= 0);
-    cout << "Ââåäèòå êîëè÷åñòâî ñòîëáöîâ 1 ìàòðèöû" << endl;
-    do {
+        if (n <= 0) cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ ÐºÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ ÑÑ‚Ñ€Ð¾Ðº 1 Ð¼Ð°Ñ‚Ñ€Ð¸Ñ†Ñ‹"<<endl;
+    }while(n <= 0);
+    cout <<"Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ ÐºÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ ÑÑ‚Ð¾Ð»Ð±Ñ†Ð¾Ð² 1 Ð¼Ð°Ñ‚Ñ€Ð¸Ñ†Ñ‹" <<endl;
+    do{
         cin >> m;
-        if (m <= 0) cout << "Ââåäèòå êîëè÷åñòâî ñòîëáöîâ 1 ìàòðèöû" << endl;
-    } while (m <= 0);
-    arr = (int*)malloc(n * m * sizeof(int));
-    cout << "Ââåäèòå çíà÷åíèÿ 1 ìàòðèöû" << endl;
+        if (m <= 0) cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ ÐºÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ ÑÑ‚Ð¾Ð»Ð±Ñ†Ð¾Ð² 1 Ð¼Ð°Ñ‚Ñ€Ð¸Ñ†Ñ‹"<<endl;
+    }while(m <= 0);
+    arr = (double*)malloc(n * m * sizeof(double));
+    cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ñ 1 Ð¼Ð°Ñ‚Ñ€Ð¸Ñ†Ñ‹"<<endl;
     for (int i = 0; i < n; i++)
-        for (int j = 0; j < m; j++) {
+        for (int j = 0; j < m; j++){
             cin >> *(arr + i * m + j);
         }
-    cout << "Ââåäèòå ÷èñëî íà êîòîðîå óìíîæèòü ìàòðèöó" << endl;
+    cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ñ‡Ð¸ÑÐ»Ð¾ Ð½Ð° ÐºÐ¾Ñ‚Ð¾Ñ€Ð¾Ðµ ÑƒÐ¼Ð½Ð¾Ð¶Ð¸Ñ‚ÑŒ Ð¼Ð°Ñ‚Ñ€Ð¸Ñ†Ñƒ" << endl;
     cin >> k;
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < m; j++) {
+    for (int i = 0; i < n; i++){
+        for (int j = 0; j < m; j++){
             *(arr + i * m + j) *= k;
-        }
-    }
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < m; j++) {
-            cout << *(arr + i * m + j) << " ";
-        }
+        }}
+    for (int i = 0; i < n; i++){
+        for (int j = 0; j < m; j++){
+            cout << *(arr + i * m + j) << " ";}
         cout << endl;
     }
-
+    delete [] arr;
 }
-void transp() {
+void transp(){
     int n, m;
-    int* arr;
-    int* arr1;
-    cout << "Ââåäèòå êîëè÷åñòâî ñòðîê 1 ìàòðèöû" << endl;
-    do {
+    double *arr;
+    double *arr1;
+    cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ ÐºÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ ÑÑ‚Ñ€Ð¾Ðº Ð¼Ð°Ñ‚Ñ€Ð¸Ñ†Ñ‹"<<endl;
+    do{
         cin >> n;
-        if (n <= 0) cout << "Ââåäèòå êîëè÷åñòâî ñòðîê 1 ìàòðèöû" << endl;
-    } while (n <= 0);
-    cout << "Ââåäèòå êîëè÷åñòâî ñòîëáöîâ 1 ìàòðèöû" << endl;
-    do {
+        if (n <= 0) cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ ÐºÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ ÑÑ‚Ñ€Ð¾Ðº Ð¼Ð°Ñ‚Ñ€Ð¸Ñ†Ñ‹"<<endl;
+    }while(n <= 0);
+    cout <<"Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ ÐºÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ ÑÑ‚Ð¾Ð»Ð±Ñ†Ð¾Ð² Ð¼Ð°Ñ‚Ñ€Ð¸Ñ†Ñ‹" <<endl;
+    do{
         cin >> m;
-        if (m <= 0) cout << "Ââåäèòå êîëè÷åñòâî ñòîëáöîâ 1 ìàòðèöû" << endl;
-    } while (m <= 0);
-    arr = (int*)malloc(n * m * sizeof(int));
-    cout << "Ââåäèòå çíà÷åíèÿ 1 ìàòðèöû" << endl;
+        if (m <= 0) cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ ÐºÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ ÑÑ‚Ð¾Ð»Ð±Ñ†Ð¾Ð² Ð¼Ð°Ñ‚Ñ€Ð¸Ñ†Ñ‹"<<endl;
+    }while(m <= 0);
+    arr = (double*)malloc(n * m * sizeof(double));
+    cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ñ Ð¼Ð°Ñ‚Ñ€Ð¸Ñ†Ñ‹"<<endl;
     for (int i = 0; i < n; i++)
-        for (int j = 0; j < m; j++) {
+        for (int j = 0; j < m; j++){
             cin >> *(arr + i * m + j);
         }
-    arr1 = (int*)malloc(n * m * sizeof(int));
+    arr1 = (double*)malloc(n * m * sizeof(double));
     for (int i = 0; i < m; i++)
-        for (int j = 0; j < n; j++) {
+        for (int j = 0; j < n; j++){
             *(arr1 + i * n + j) = *(arr + j * m + i);
         }
-    for (int i = 0; i < m; i++) {
-        for (int j = 0; j < n; j++) {
-            cout << *(arr1 + i * n + j) << " ";
-        }
+    for (int i = 0; i < m; i++){
+        for (int j = 0; j < n; j++){
+            cout << *(arr1 + i * n + j) << " ";}
         cout << endl;
     }
-
+    delete [] arr1;
+    delete [] arr;
 }
 
-void umnm() {
+void umnm(){
     int n, m, n1, m1;
-    int* arr;
-    int* arr1;
-    int* res;
-    cout << "Ââåäèòå êîëè÷åñòâî ñòðîê 1 ìàòðèöû" << endl;
-    do {
+    double *arr;
+    double *arr1;
+    double *res;
+    cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ ÐºÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ ÑÑ‚Ñ€Ð¾Ðº 1 Ð¼Ð°Ñ‚Ñ€Ð¸Ñ†Ñ‹"<<endl;
+    do{
         cin >> n;
-        if (n <= 0) cout << "Ââåäèòå êîëè÷åñòâî ñòðîê 1 ìàòðèöû" << endl;
-    } while (n <= 0);
-    cout << "Ââåäèòå êîëè÷åñòâî ñòîëáöîâ 1 ìàòðèöû" << endl;
-    do {
+        if (n <= 0) cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ ÐºÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ ÑÑ‚Ñ€Ð¾Ðº 1 Ð¼Ð°Ñ‚Ñ€Ð¸Ñ†Ñ‹"<<endl;
+    }while(n <= 0);
+    cout <<"Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ ÐºÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ ÑÑ‚Ð¾Ð»Ð±Ñ†Ð¾Ð² 1 Ð¼Ð°Ñ‚Ñ€Ð¸Ñ†Ñ‹" <<endl;
+    do{
         cin >> m;
-        if (m <= 0) cout << "Ââåäèòå êîëè÷åñòâî ñòîëáöîâ 1 ìàòðèöû" << endl;
-    } while (m <= 0);
-    arr = (int*)malloc(n * m * sizeof(int));
-    cout << "Ââåäèòå çíà÷åíèÿ 1 ìàòðèöû" << endl;
+        if (m <= 0) cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ ÐºÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ ÑÑ‚Ð¾Ð»Ð±Ñ†Ð¾Ð² 1 Ð¼Ð°Ñ‚Ñ€Ð¸Ñ†Ñ‹"<<endl;
+    }while(m <= 0);
+    arr = (double*)malloc(n * m * sizeof(double));
+    cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ñ 1 Ð¼Ð°Ñ‚Ñ€Ð¸Ñ†Ñ‹"<<endl;
     for (int i = 0; i < n; i++)
-        for (int j = 0; j < m; j++) {
+        for (int j = 0; j < m; j++){
             cin >> *(arr + i * m + j);
         }
-    cout << "Ââåäèòå êîëè÷åñòâî ñòðîê 2 ìàòðèöû" << endl;
-    do {
+    cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ ÐºÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ ÑÑ‚Ñ€Ð¾Ðº 2 Ð¼Ð°Ñ‚Ñ€Ð¸Ñ†Ñ‹"<<endl;
+    do{
         cin >> n1;
-        if (n1 <= 0) cout << "Ââåäèòå êîëè÷åñòâî ñòðîê 2 ìàòðèöû" << endl;
-    } while (n1 <= 0);
-    cout << "Ââåäèòå êîëè÷åñòâî ñòîëáöîâ 2 ìàòðèöû" << endl;
-    do {
+        if (n1 <= 0) cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ ÐºÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ ÑÑ‚Ñ€Ð¾Ðº 2 Ð¼Ð°Ñ‚Ñ€Ð¸Ñ†Ñ‹"<<endl;
+    }while(n1 <= 0);
+    cout <<"Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ ÐºÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ ÑÑ‚Ð¾Ð»Ð±Ñ†Ð¾Ð² 2 Ð¼Ð°Ñ‚Ñ€Ð¸Ñ†Ñ‹" <<endl;
+    do{
         cin >> m1;
-        if (m1 <= 0) cout << "Ââåäèòå êîëè÷åñòâî ñòîëáöîâ 2 ìàòðèöû" << endl;
-    } while (m1 <= 0);
-    arr1 = (int*)malloc(n1 * m1 * sizeof(int));
-    cout << "Ââåäèòå çíà÷åíèÿ 2 ìàòðèöû" << endl;
+        if (m1 <= 0) cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ ÐºÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ ÑÑ‚Ð¾Ð»Ð±Ñ†Ð¾Ð² 2 Ð¼Ð°Ñ‚Ñ€Ð¸Ñ†Ñ‹"<<endl;
+    }while(m1 <= 0);
+    arr1 = (double*)malloc(n1 * m1 * sizeof(double));
+    cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ñ 2 Ð¼Ð°Ñ‚Ñ€Ð¸Ñ†Ñ‹"<<endl;
     for (int i = 0; i < n1; i++)
-        for (int j = 0; j < m1; j++) {
-            cin >> *(arr1 + i * m + j);
+        for (int j = 0; j < m1; j++){
+            cin >> *(arr1 + i * m1 + j);
         }
-    res = (int*)malloc(n * n * sizeof(int));
-    if (n == m1 && m == n1) {
-        for (int k = 0; k < n; k++)
-            for (int l = 0; l < n; l++)
-                for (int i = 0; i < m; i++) {
-                    for (int j = 0; j < n1; j++) {
-                        for (int e = 0; e < n1; e++) {
-                            cout << *(arr + i * m + e + j) << " ïåðâàÿ ìàòðèöà çíà÷åíèÿ" << *(arr1 + (j + e) * m + i) << " âòîðàÿ ìàòðèöà çíà÷åíèÿ" << endl;
-                            *(res + k * m + l) = *(res + k * m + l) + (*(arr + i * m + e + j) * *(arr1 + (j + e) * m + i));
-                        }
-                    }
-                }
+    res = (double*)malloc(n * n * sizeof(double));
+    if (n == m1){
+        for (int i = 0; i < n; i++){
+            for (int j = 0;j < m1;j++){
+                *(res + i * n + j) = 0;
+                for (int k = 0; k < m; k++){
+                    *(res + i * n + j) += *(arr + i * m + k) * *(arr1 + k * m1 + j);
+                
+            }
+            
+        }}}
+    for (int i = 0; i < n; i++){
+        for (int j = 0; j < n; j++){
+            cout << *(res + i * n + j) << " ";}
+        cout << endl;
+    }
+    delete [] arr;
+    delete [] arr1;
+    delete [] res;
+    
+}
+void plus_minus_ch(){
+    int ch, n, m;
+    double *arr;
+    cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ ÐºÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ ÑÑ‚Ñ€Ð¾Ðº Ð¼Ð°Ñ‚Ñ€Ð¸Ñ†Ñ‹"<<endl;
+    do{
+        cin >> n;
+        if (n <= 0) cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ ÐºÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ ÑÑ‚Ñ€Ð¾Ðº Ð¼Ð°Ñ‚Ñ€Ð¸Ñ†Ñ‹"<<endl;
+    }while(n <= 0);
+    cout <<"Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ ÐºÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ ÑÑ‚Ð¾Ð»Ð±Ñ†Ð¾Ð² Ð¼Ð°Ñ‚Ñ€Ð¸Ñ†Ñ‹" <<endl;
+    do{
+        cin >> m;
+        if (m <= 0) cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ ÐºÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ ÑÑ‚Ð¾Ð»Ð±Ñ†Ð¾Ð² Ð¼Ð°Ñ‚Ñ€Ð¸Ñ†Ñ‹"<<endl;
+    }while(m <= 0);
+    arr = (double*)malloc(n * m * sizeof(double));
+    cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ñ 1 Ð¼Ð°Ñ‚Ñ€Ð¸Ñ†Ñ‹"<<endl;
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j < m; j++){
+            cin >> *(arr + i * m + j);
+        }
+    cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ñ‡Ð¸ÑÐ»Ð¾ Ð´Ð»Ñ ÑÐ»Ð¾Ð¶ÐµÐ½Ð¸Ñ Ð¼Ð°Ñ‚Ñ€Ð¸Ñ†Ñ‹ Ñ Ñ‡Ð¸ÑÐ»Ð¾Ð¼ - Ð¿Ð¾Ð»Ð¾Ð¶Ð¸Ñ‚ÐµÐ»ÑŒÐ½Ð¾Ðµ, Ð´Ð»Ñ Ð²Ñ‹Ñ‡Ð¸Ñ‚Ð°Ð½Ð¸Ñ - Ð¾Ñ‚Ñ€Ð¸Ñ†Ð°Ñ‚ÐµÐ»ÑŒÐ½Ð¾Ðµ" << endl;
+    cin >> ch;
+    for (int i = 0;i < n;i ++){
+        for (int j = 0;j < m;j++){
+            *(arr + i * m + j) = *(arr + i * m + j) + ch;
+        }}
+    for (int i = 0; i < n; i++){
+        for (int j = 0; j < m; j++){
+            cout << *(arr + i * m + j) << " ";}
+        cout << endl;
+    }
+    delete [] arr;
+}
+
+void inversem(){
+    int n;
+    double *arr;
+    double *arr1;
+    double *res;
+    double d;
+    double tmp;
+    struct Minor minor;
+    cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ ÐºÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ ÑÑ‚Ñ€Ð¾Ðº(ÑÑ‚Ð¾Ð»Ð±Ñ†Ð¾Ð²) ÐºÐ²Ð°Ð´Ñ€Ð°Ñ‚Ð½Ð¾Ð¹ Ð¼Ð°Ñ‚Ñ€Ð¸Ñ†Ñ‹ Ð¼Ð°Ñ‚Ñ€Ð¸Ñ†Ñ‹ Ð±Ð¾Ð»ÑŒÑˆÐµ 0 Ð¸ Ð½Ðµ Ð±Ð¾Ð»ÑŒÑˆÐµ 5"<<endl;
+    do{
+        cin >> n;
+        if (n <= 0 || n > 5) cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ ÐºÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ ÑÑ‚Ñ€Ð¾Ðº(ÑÑ‚Ð¾Ð»Ð±Ñ†Ð¾Ð²) ÐºÐ²Ð°Ð´Ñ€Ð°Ñ‚Ð½Ð¾Ð¹ Ð¼Ð°Ñ‚Ñ€Ð¸Ñ†Ñ‹ Ð¼Ð°Ñ‚Ñ€Ð¸Ñ†Ñ‹ Ð±Ð¾Ð»ÑŒÑˆÐµ 0 Ð¸ Ð½Ðµ Ð±Ð¾Ð»ÑŒÑˆÐµ 5"<<endl;
+    }while(n <= 0 || n > 5);
+    arr = (double*)malloc(n * n * sizeof(double));
+    arr1 = (double*)malloc(n * n * sizeof(double));
+    cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ñ Ð¼Ð°Ñ‚Ñ€Ð¸Ñ†Ñ‹"<<endl;
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j < n; j++){
+            cin >> *(arr + i * n + j);
+        }
+    res = (double*)malloc(n * n * sizeof(double));
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j < n; j++){
+            *(arr1 + i * n + j) = *(arr + j * n + i);
+        }
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j < n; j++){
+            *(arr + i * n + j) = *(arr1 + i * n + j);
+        }
+    for (int k = 0; k < n - 1; k++) {
+        for (int i = k + 1; i < n; i++) {
+            tmp = -(*(arr1 + i * n + k)) / *(arr1 + k * n + k);
+            for (int j = 0; j < n; j++) {
+                *(arr1 + i * n + j) += *(arr1 + k * n + j) * tmp;
+            }
+        }
+    }
+    
+    d = 1;
+    for (int i = 0; i < n; i++) {
+        d *= *(arr1+ i * n + i);
+    }
+    if (d == 0){
+        cout << "ÐÐµÐ²Ð¾Ð·Ð¼Ð¾Ð¶Ð½Ð¾ Ð¿Ð¾ÑÑ‡Ð¸Ñ‚Ð°Ñ‚ÑŒ Ð¾Ð±Ñ€Ð°Ñ‚Ð½ÑƒÑŽ Ð¼Ð°Ñ‚Ñ€Ð¸Ñ†Ñƒ"<< endl;
+        menu_m();
     }
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
-            cout << *(res + i * n + j) << " ";
+            int ki = 0;
+            for (int ii = 0; ii < n; ii++) {
+                if (i != ii) {
+                    for (int jj = 0, kj = 0; jj < n; jj++) {
+                        if (j != jj) {
+                            minor.minor[ki][kj] = *(arr + ii*n + jj);
+                            kj++;
+                        }
+                    }
+                    ki++;
+                }
+            }
+            *(res + i*n + j) = pow(-1, i + j + 2) * determm(minor, n - 1);
         }
+    }
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j < n; j++){
+            *(arr + i * n + j) = *(res + i * n + j);
+        }
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            *(arr + i * n + j) /= d;
+        }
+    }
+    for (int i = 0; i < n; i++){
+        for (int j = 0; j < n; j++){
+            cout << *(arr + i * n + j) << " ";}
         cout << endl;
     }
+    delete [] arr;
+    delete [] arr1;
+    delete [] res;
+}
+void opredm(){
+    int n;
+    double *arr;
+    double tmp, d;
+
+    cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ ÐºÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ ÑÑ‚Ñ€Ð¾Ðº(ÑÑ‚Ð¾Ð»Ð±Ñ†Ð¾Ð²) ÐºÐ²Ð°Ð´Ñ€Ð°Ñ‚Ð½Ð¾Ð¹ Ð¼Ð°Ñ‚Ñ€Ð¸Ñ†Ñ‹ Ð¼Ð°Ñ‚Ñ€Ð¸Ñ†Ñ‹ Ð±Ð¾Ð»ÑŒÑˆÐµ 0 Ð¸ Ð½Ðµ Ð±Ð¾Ð»ÑŒÑˆÐµ 5"<<endl;
+    do{
+        cin >> n;
+        if (n <= 0 || n > 5) cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ ÐºÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ ÑÑ‚Ñ€Ð¾Ðº(ÑÑ‚Ð¾Ð»Ð±Ñ†Ð¾Ð²) ÐºÐ²Ð°Ð´Ñ€Ð°Ñ‚Ð½Ð¾Ð¹ Ð¼Ð°Ñ‚Ñ€Ð¸Ñ†Ñ‹ Ð¼Ð°Ñ‚Ñ€Ð¸Ñ†Ñ‹ Ð±Ð¾Ð»ÑŒÑˆÐµ 0 Ð¸ Ð½Ðµ Ð±Ð¾Ð»ÑŒÑˆÐµ 5"<<endl;
+    }while(n <= 0 || n > 5);
+    arr = (double*)malloc(n * n * sizeof(double));
+    cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ñ 1 Ð¼Ð°Ñ‚Ñ€Ð¸Ñ†Ñ‹"<<endl;
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j < n; j++){
+            cin >> *(arr + i * n + j);
+        }
+    for (int k = 0; k < n - 1; k++) {
+        for (int i = k + 1; i < n; i++) {
+            tmp = -(*(arr + i * n + k)) / *(arr + k * n + k);
+            for (int j = 0; j < n; j++) {
+                *(arr + i * n + j) += *(arr + k * n + j) * tmp;
+            }
+        }
+    }
+    
+    d = 1;
+    for (int i = 0; i < n; i++) {
+        d *= *(arr + i * n + i);
+    }
+    cout << d;
+    delete [] arr;
+
+}
+double determm(Minor minor, int n){
+    double tmp, d;
+    minor.n = n;
+    for (int k = 0; k < n - 1; k++) {
+        for (int i = k + 1; i < n; i++) {
+            tmp = -minor.minor[i][k] / minor.minor[k][k];
+            for (int j = 0; j < n; j++) {
+                minor.minor[i][j] += minor.minor[k][j] * tmp;
+            }
+        }
+    }
+    
+    d = 1;
+    for (int i = 0; i < n; i++) {
+        d *= minor.minor[i][i];
+    }
+    return d;
 }
