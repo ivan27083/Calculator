@@ -1,4 +1,4 @@
-//#include "ChekOnRightOfNumber.h"
+#include "ChekOnRightOfNumber.h"
 #include "mnogochlen_calc.h"
 #include <iostream>
 
@@ -717,9 +717,7 @@ void proizv_of_polynomial(int* a, int& extent1, int* c, int& extent3)
 }
 void del_polinomials_stolbik() //int* a, int& extent1, int* b, int& extent2, int* c, int& extent3
 {
-    cout << 0;
-}
-/*double A1, A2, B1, C1, C2, A3, N3, B3, C3;
+    double A1, A2, B1, C1, C2, A3, N3, B3, C3;
     int prov = 0, N1, N2;
     cout << "Пример ввода множителей:\n1 - A1X^N1+BX+C1\n2 - A2X^N2+C2\nПримечание: все вводимые переменные не равны нулю, (N1-1) равно N2, N1>=2\n";
     do {
@@ -793,4 +791,5 @@ void del_polinomials_stolbik() //int* a, int& extent1, int* b, int& extent2, int
             if (C1 < 0)
                 printf_s("%0.3lf", C1);
         }
-    }*/
+    }
+}

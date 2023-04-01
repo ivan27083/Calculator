@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ChekOnRightOfNumber.cpp" />
     <ClCompile Include="combinatorics.cpp" />
     <ClCompile Include="Drobi_calc.cpp" />
     <ClCompile Include="Extremum.cpp" />
@@ -141,6 +142,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="chance_calc.h" />
+    <ClInclude Include="ChekOnRightOfNumber.h" />
     <ClInclude Include="combinations_calc.h" />
     <ClInclude Include="division_calc.h" />
     <ClInclude Include="functions_calc.h" />
