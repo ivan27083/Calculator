@@ -2,8 +2,8 @@
 #include <iostream>
 #include "functions_calc.h"
 using namespace std;
-const int SCREEN_WIDTH = 900;
-const int SCREEN_HEIGHT = 512;
+const int SCREEN_WIDTH = 800;
+const int SCREEN_HEIGHT = 800;
 
 double poli_func(double x, double *mas_a, int n) {
 	double y = 0;
@@ -27,7 +27,7 @@ double pokaz_func(double x, double a, double b, double c, double d) {
 
 double log_func(double x, double a, double b, double c) {
 	double y;
-	y = a * log(b * c) + c;
+	y = a * log(b * x) + c;
 	return y;
 }
 
@@ -48,9 +48,13 @@ void Polynom_graphik() {
 	double* mas_a;
 	double x1, y1, x2, y2;
 	int n;
+	cout << "Общий вид полиномиальной функции: a0+a1*x+a2*x^2+...+aN*x^N" << endl;
+	cout << "Введите степень N полиномиальной функции:" << endl;
 	cin >> n;
 	mas_a = (double*)malloc(n * sizeof(double));
+
 	for (int i = 0; i <= n; i++) {
+		cout << "Введите коэфициент x^" << i << ": ";
 		cin >> mas_a[i];
 	}
 	int multiplier;
@@ -87,13 +91,14 @@ void Polynom_graphik() {
 				y1 = y2;
 			}
 			SDL_RenderPresent(renderer);
-			SDL_Event e;
+			SDL_Delay(5000);
+			/*SDL_Event e;
 			bool quit = false;
 			while (quit == false) {
 				while (SDL_PollEvent(&e)) {
 					if (e.type == SDL_QUIT) quit = true;
 				}
-			}
+			}*/
 			SDL_DestroyRenderer(renderer);
 			SDL_DestroyWindow(window);
 			SDL_Quit();
@@ -140,19 +145,20 @@ void Stepen_graphik() {
 			y1 = stepen_func(x1, a, b, c);
 			for (double i = -x0/ multiplier; i <= x0/multiplier; i += 1.0/ multiplier) {
 				x2 = i;
-				y2 = stepen_func(x1, a, b, c);
+				y2 = stepen_func(x2, a, b, c);
 				SDL_RenderDrawLine(renderer, x0 + int(x1 * multiplier), y0 - int(y1 * multiplier), x0 + int(x2 * multiplier), y0 - int(y2 * multiplier));
 				x1 = x2;
 				y1 = y2;
 			}
 			SDL_RenderPresent(renderer);
-			SDL_Event e;
+			SDL_Delay(5000);
+			/*DL_Event e;
 			bool quit = false;
 			while (quit == false) {
 				while (SDL_PollEvent(&e)) {
 					if (e.type == SDL_QUIT) quit = true;
 				}
-			}
+			}*/
 			SDL_DestroyRenderer(renderer);
 			SDL_DestroyWindow(window);
 			SDL_Quit();
@@ -188,7 +194,7 @@ void Pokaz_graphik() {
 		}
 		else
 		{
-			multiplier = 10;
+			multiplier = 50;
 			SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, 0);
 			SDL_SetRenderDrawColor(renderer, 255, 255, 255, 0);
 			SDL_RenderClear(renderer);
@@ -199,21 +205,22 @@ void Pokaz_graphik() {
 			SDL_RenderPresent(renderer);
 			x1 = -x0 / multiplier;
 			y1 = pokaz_func(x1, a, b, c, d);
-			for (double i = -x0/ multiplier; i <= x0/multiplier; i += 1.0/ multiplier) {
+			for (double i = -x0/ multiplier; i <= x0/multiplier; i += 1.0) {
 				x2 = i;
-				y2 = pokaz_func(x1, a, b, c, d);
+				y2 = pokaz_func(x2, a, b, c, d);
 				SDL_RenderDrawLine(renderer, x0 + int(x1 * multiplier), y0 - int(y1 * multiplier), x0 + int(x2 * multiplier), y0 - int(y2 * multiplier));
 				x1 = x2;
 				y1 = y2;
 			}
 			SDL_RenderPresent(renderer);
-			SDL_Event e;
+			SDL_Delay(5000);
+			/*SDL_Event e;
 			bool quit = false;
 			while (quit == false) {
 				while (SDL_PollEvent(&e)) {
 					if (e.type == SDL_QUIT) quit = true;
 				}
-			}
+			}*/
 			SDL_DestroyRenderer(renderer);
 			SDL_DestroyWindow(window);
 			SDL_Quit();
@@ -224,6 +231,7 @@ void Pokaz_graphik() {
 void Log_graphik() {
 	int x0 = SCREEN_WIDTH / 2, y0 = SCREEN_HEIGHT / 2;
 	double x1, y1, x2, y2, a, b, c, d;
+	double e = 0.00001;
 	cout << "Общий вид логарифмической функции: a*ln(b*x)+c" << endl;
 	cout << "Введите параметры a,b,c логарифмической функции:" << endl;
 	cout << "a= ";
@@ -256,23 +264,24 @@ void Log_graphik() {
 			SDL_RenderDrawLine(renderer, 0, SCREEN_HEIGHT / 2, SCREEN_WIDTH, SCREEN_HEIGHT / 2);
 			SDL_RenderDrawLine(renderer, SCREEN_WIDTH / 2, SCREEN_HEIGHT, SCREEN_WIDTH / 2, 0);
 			SDL_RenderPresent(renderer);
-			x1 = -x0 / multiplier;
+			x1 = 0+e;
 			y1 = log_func(x1, a, b, c);
-			for (double i = -x0/ multiplier; i <= x0/multiplier; i += 1.0/ multiplier) {
+			for (double i = 0+e; i <= x0/multiplier + e; i += 1.0/ multiplier) {
 				x2 = i;
-				y2 = log_func(x1, a, b, c);
+				y2 = log_func(x2, a, b, c);
 				SDL_RenderDrawLine(renderer, x0 + int(x1 * multiplier), y0 - int(y1 * multiplier), x0 + int(x2 * multiplier), y0 - int(y2 * multiplier));
 				x1 = x2;
 				y1 = y2;
 			}
 			SDL_RenderPresent(renderer);
-			SDL_Event e;
+			SDL_Delay(5000);
+			/*SDL_Event e;
 			bool quit = false;
 			while (quit == false) {
 				while (SDL_PollEvent(&e)) {
 					if (e.type == SDL_QUIT) quit = true;
 				}
-			}
+			}*/
 			SDL_DestroyRenderer(renderer);
 			SDL_DestroyWindow(window);
 			SDL_Quit();
@@ -321,19 +330,20 @@ void Sin_graphik() {
 			y1 = sin_func(x1, a, b, c, d);
 			for (double i = -x0/ multiplier; i <= x0/multiplier; i += 1.0/ multiplier) {
 				x2 = i;
-				y2 = sin_func(x1, a, b, c, d);
+				y2 = sin_func(x2, a, b, c, d);
 				SDL_RenderDrawLine(renderer, x0 + int(x1 * multiplier), y0 - int(y1 * multiplier), x0 + int(x2 * multiplier), y0 - int(y2 * multiplier));
 				x1 = x2;
 				y1 = y2;
 			}
 			SDL_RenderPresent(renderer);
-			SDL_Event e;
+			SDL_Delay(5000);
+			/*SDL_Event e;
 			bool quit = false;
 			while (quit == false) {
 				while (SDL_PollEvent(&e)) {
 					if (e.type == SDL_QUIT) quit = true;
 				}
-			}
+			}*/
 			SDL_DestroyRenderer(renderer);
 			SDL_DestroyWindow(window);
 			SDL_Quit();
@@ -382,19 +392,20 @@ void Cos_graphik() {
 			y1 = cos_func(x1, a, b, c, d);
 			for (double i = -x0/ multiplier; i <= x0/multiplier; i += 1.0/ multiplier) {
 				x2 = i;
-				y2 = cos_func(x1, a, b, c, d);
+				y2 = cos_func(x2, a, b, c, d);
 				SDL_RenderDrawLine(renderer, x0 + int(x1 * multiplier), y0 - int(y1 * multiplier), x0 + int(x2 * multiplier), y0 - int(y2 * multiplier));
 				x1 = x2;
 				y1 = y2;
 			}
 			SDL_RenderPresent(renderer);
-			SDL_Event e;
+			SDL_Delay(5000);
+			/*SDL_Event e;
 			bool quit = false;
 			while (quit == false) {
 				while (SDL_PollEvent(&e)) {
 					if (e.type == SDL_QUIT) quit = true;
 				}
-			}
+			}*/
 			SDL_DestroyRenderer(renderer);
 			SDL_DestroyWindow(window);
 			SDL_Quit();

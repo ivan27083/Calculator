@@ -21,7 +21,7 @@ int main(int argc, char** argv)
             continue;
         case 2: menu_combinatorics();
             continue;
-        case 3: //menu_polynomials();
+        case 3: MenuPolynomial();
             continue;
         case 4: menu_statist_ver();
             continue;

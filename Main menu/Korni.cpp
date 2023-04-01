@@ -118,9 +118,13 @@ void korni() {
 					res = poly(i, N, ind);
 				}
 			}
-			for (int i = 0; i < count; i++) {
-				cout << "x" << i + 1 << "= " << korni[i] << endl;
+			if (count > 0) {
+				cout << "Точки экстремума:" << endl;
+				for (int i = 0; i < count; i++) {
+					cout << "x" << i + 1 << "= " << korni[i] << endl;
+				}
 			}
+			else cout << "Корней нет:" << endl;
 			break;
 		case 2://Степенная
 			cout << "Общий вид степеной функции: a*x^b+c" << endl;
@@ -149,9 +153,13 @@ void korni() {
 					res = stepen_func(i, a, b, c);
 				}
 			}
-			for (int i = 0; i < count; i++) {
-				cout << "x" << i + 1 << "= " << korni[i] << endl;
+			if (count > 0) {
+				cout << "Точки экстремума:" << endl;
+				for (int i = 0; i < count; i++) {
+					cout << "x" << i + 1 << "= " << korni[i] << endl;
+				}
 			}
+			else cout << "Корней нет:" << endl;
 			break;
 		case 3://Показательная
 			cout << "Общий вид показательной функции: a*b^(c*x)+d" << endl;
@@ -182,9 +190,13 @@ void korni() {
 					res = pokaz_func(i, a, b, c, d);
 				}
 			}
-			for (int i = 0; i < count; i++) {
-				cout << "x" << i+1 << "= " << korni[i] << endl;
+			if (count > 0) {
+				cout << "Точки экстремума:" << endl;
+				for (int i = 0; i < count; i++) {
+					cout << "x" << i + 1 << "= " << korni[i] << endl;
+				}
 			}
+			else cout << "Корней нет:" << endl;
 			break;
 		case 4://Логарифмическая
 			cout << "Общий вид логарифмической функции: a*ln(b*x)+c" << endl;
@@ -213,9 +225,13 @@ void korni() {
 					res = log_func(i, a, b, c);
 				}
 			}
-			for (int i = 0; i < count; i++) {
-				cout << "x" << i + 1 << "= " << korni[i] << endl;
+			if (count > 0) {
+				cout << "Точки экстремума:" << endl;
+				for (int i = 0; i < count; i++) {
+					cout << "x" << i + 1 << "= " << korni[i] << endl;
+				}
 			}
+			else cout << "Корней нет:" << endl;
 			break;
 		case 5://Синусоида
 			cout << "Общий вид функции синусоиды: a*sin(b*x+c)+d" << endl;
@@ -246,9 +262,13 @@ void korni() {
 					res = sin_func(i, a, b, c, d);
 				}
 			}
-			for (int i = 0; i < count; i++) {
-				cout << "x" << i + 1 << "= " << korni[i] << endl;
+			if (count > 0) {
+				cout << "Точки экстремума:" << endl;
+				for (int i = 0; i < count; i++) {
+					cout << "x" << i + 1 << "= " << korni[i] << endl;
+				}
 			}
+			else cout << "Корней нет:" << endl;
 			break;
 		case 6://Косинусоида
 			cout << "Общий вид функции косинусоиды: a*cos(b*x+c)+d" << endl;
@@ -279,9 +299,13 @@ void korni() {
 					res = cos_func(i, a, b, c, d);
 				}
 			}
-			for (int i = 0; i < count; i++) {
-				cout << "x" << i + 1 << "= " << korni[i] << endl;
+			if (count > 0) {
+				cout << "Точки экстремума:" << endl;
+				for (int i = 0; i < count; i++) {
+					cout << "x" << i + 1 << "= " << korni[i] << endl;
+				}
 			}
+			else cout << "Корней нет:" << endl;
 			break;
 		default: cout << "Неверный ввод" << endl;
 		}
