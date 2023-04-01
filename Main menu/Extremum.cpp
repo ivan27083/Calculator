@@ -3,7 +3,7 @@
 #include <cmath>
 using namespace std;
 
-double proizv_poly(double x, int n, double a[]) {
+double proizv_poly(double x, int n, double* a){
 	double res = 0;
 	for (int i = 1; i <= n; i++) {
 		res += i * a[i] * pow(x, i - 1);
@@ -12,7 +12,7 @@ double proizv_poly(double x, int n, double a[]) {
 }
 double dih_poly_ex(double a, double b, double e, int n, double* ind) {
 	double c = (a + b) / 2;
-	while (proizv_poly(c, n, ind) != 0 && (b - a) / 2 > e) {
+	while ((proizv_poly(c, n, ind) != 0) && ((b - a) / 2 > e)) {
 		if (proizv_poly(a, n, ind) * proizv_poly(c, n, ind) < 0) b = c;
 		else a = c;
 		c = (a + b) / 2;
@@ -104,13 +104,14 @@ void extr_func() {
 	double* ind;
 	double e = 0.0001;
 	do {
-		cout << "Выберите вид функции(1-6):" << endl << "1 - Полином степени n" << endl << "2 - Степенная функция" << endl << "3 - Показательная функция" << endl << "4 - Логарифмическая функция" << endl << "5 - Синусоида" << endl << "6 - Косинусоида";
+		cout << "Выберите вид функции(1-6):" << endl << "1 - Полином степени n" << endl << "2 - Степенная функция" << endl << "3 - Показательная функция" << endl << "4 - Логарифмическая функция" << endl << "5 - Синусоида" << endl << "6 - Косинусоида" << endl;
 		cin >> q;
 		check = true;
 		int start, fin;
 		double i;
 		double res;
 		double* tochki;
+		tochki = (double*)malloc(sizeof(double));
 		int count = 0;
 		switch (q) {
 		case 0: check = false; break;
@@ -128,22 +129,23 @@ void extr_func() {
 			cin >> a;
 			cout << "m= ";
 			cin >> b;
-			tochki = (double*)malloc(sizeof(double));
+			count = 1;
 			i = a;
 			start = i;
 			res = proizv_poly(i, N, ind);
 			for (i; i < b; i++) {
 				if ((res < 0 && proizv_poly(i, N, ind) >= 0) || (res > 0 && proizv_poly(i, N, ind) <= 0)) {
 					fin = i;
-					tochki = (double*)realloc(tochki, ++count * sizeof(double));
-					tochki[count] = dih_poly_ex(start, fin, e, N, ind);
+					tochki = (double*)realloc(tochki, count * sizeof(double));
+					tochki[count-1] = dih_poly_ex(start, fin, e, N, ind);
+					count++;
 					start = fin;
 					res = proizv_poly(i, N, ind);
 				}
 			}
-			if (count > 0) {
+			if (count-1 > 0) {
 				cout << "Точки экстремума:" << endl;
-				for (int i = 0; i < count; i++) {
+				for (int i = 0; i < count-1; i++) {
 					cout << "x" << i + 1 << "= " << tochki[i] << endl;
 				}
 			}
@@ -166,12 +168,15 @@ void extr_func() {
 			i = n;
 			start = i;
 			res = proizv_stepen(i, a, b, c);
-			tochki = (double*)malloc(sizeof(double));
 			for (i; i < m; i++) {
 				if ((res < 0 && proizv_stepen(i, a, b, c) >= 0) || (res > 0 && proizv_stepen(i, a, b, c) <= 0)) {
 					fin = i;
-					tochki = (double*)realloc(tochki, ++count * sizeof(double));
-					tochki[count] = dih_step_ex(start, fin, e, a, b, c);
+					tochki = (double*)realloc(tochki, (count+1) * sizeof(double));
+					if (dih_step_ex(start, fin, e, a, b, c) > -e && dih_step_ex(start, fin, e, a, b, c) < e) {
+						tochki[count] = 0;
+					}
+					else tochki[count] = dih_step_ex(start, fin, e, a, b, c);
+					count++;
 					start = fin;
 					res = proizv_stepen(i, a, b, c);
 				}
@@ -203,12 +208,12 @@ void extr_func() {
 			i = n;
 			start = i;
 			res = proizv_pokaz(i, a, b, c, d);
-			tochki = (double*)malloc(sizeof(double));
 			for (i; i < m; i++) {
 				if ((res < 0 && proizv_pokaz(i, a, b, c, d) >= 0) || (res > 0 && proizv_pokaz(i, a, b, c, d) <= 0)) {
 					fin = i;
-					tochki = (double*)realloc(tochki, (count + 1) * sizeof(double));
-					tochki[count++] = dih_pokaz_ex(start, fin, e, a, b, c, d);
+					tochki = (double*)realloc(tochki, (count+1) * sizeof(double));
+					tochki[count] = dih_pokaz_ex(start, fin, e, a, b, c, d);
+					count++;
 					start = fin;
 					res = proizv_pokaz(i, a, b, c, d);
 				}
@@ -236,14 +241,15 @@ void extr_func() {
 			cout << "m= ";
 			cin >> m;
 			i = n;
+			if (i < 0) i = e;
 			start = i;
 			res = proizv_log(i, a, b, c);
-			tochki = (double*)malloc(sizeof(double));
 			for (i; i < m; i++) {
 				if ((res < 0 && proizv_log(i, a, b, c) >= 0) || (res > 0 && proizv_log(i, a, b, c) <= 0)) {
 					fin = i;
-					tochki = (double*)realloc(tochki, (count + 1) * sizeof(double));
-					tochki[count++] = dih_log_ex(start, fin, e, a, b, c);
+					tochki = (double*)realloc(tochki, (count+1) * sizeof(double));
+					tochki[count] = dih_log_ex(start, fin, e, a, b, c);
+					count++;
 					start = fin;
 					res = proizv_log(i, a, b, c);
 				}
@@ -275,12 +281,12 @@ void extr_func() {
 			i = n;
 			start = i;
 			res = proizv_sin(i, a, b, c, d);
-			tochki = (double*)malloc(sizeof(double));
 			for (i; i < m; i++) {
 				if ((res < 0 && proizv_sin(i, a, b, c, d) >= 0) || (res > 0 && proizv_sin(i, a, b, c, d) <= 0)) {
 					fin = i;
-					tochki = (double*)realloc(tochki, (count + 1) * sizeof(double));
-					tochki[count++] = dih_sin_ex(start, fin, e, a, b, c, d);
+					tochki = (double*)realloc(tochki, (count+1) * sizeof(double));
+					tochki[count] = dih_sin_ex(start, fin, e, a, b, c, d);
+					count++;
 					start = fin;
 					res = proizv_sin(i, a, b, c, d);
 				}
@@ -312,12 +318,12 @@ void extr_func() {
 			i = n;
 			start = i;
 			res = proizv_cos(i, a, b, c, d);
-			tochki = (double*)malloc(sizeof(double));
 			for (i; i < m; i++) {
 				if ((res < 0 && proizv_cos(i, a, b, c, d) >= 0) || (res > 0 && proizv_cos(i, a, b, c, d) <= 0)) {
 					fin = i;
-					tochki = (double*)realloc(tochki, (count + 1) * sizeof(double));
-					tochki[count++] = dih_cos_ex(start, fin, e, a, b, c, d);
+					tochki = (double*)realloc(tochki, (count+1) * sizeof(double));
+					tochki[count] = dih_cos_ex(start, fin, e, a, b, c, d);
+					count++;
 					start = fin;
 					res = proizv_cos(i, a, b, c, d);
 				}

@@ -11,7 +11,7 @@ double integral() {
 	double sum = 0;
 	double* ind;
 	do {
-		cout << "Выберите вид функции(1-6):" << endl << "1 - Полином степени n" << endl << "2 - Степенная функция" << endl << "3 - Показательная функция" << endl << "4 - Логарифмическая функция" << endl << "5 - Синусоида" << endl << "6 - Косинусоида";
+		cout << "Выберите вид функции(1-6):" << endl << "1 - Полином степени n" << endl << "2 - Степенная функция" << endl << "3 - Показательная функция" << endl << "4 - Логарифмическая функция" << endl << "5 - Синусоида" << endl << "6 - Косинусоида" << endl;
 		cin >> q;
 		check = true;
 		switch (q) {
@@ -30,7 +30,7 @@ double integral() {
 				cout << "a" << i << "= ";
 				cin >> ind[i];
 				cout << endl;
-				sum += (pow(b, i + 1) * ind[i] / i + 1) - (pow(a, i + 1) * ind[i] / i + 1);
+				sum += (pow(b, i + 1) * ind[i] / (i + 1)) - (pow(a, i + 1) * ind[i] / (i + 1));
 			}
 			return sum;
 			break;

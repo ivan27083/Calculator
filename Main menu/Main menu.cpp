@@ -2,7 +2,7 @@
 #include <SDL.h>
 #include "matrix_calc.h" // Клековкина
 #include "combinations_calc.h"//Зайцева
-#include "mnogochlen_calc.h"
+#include "mnogochlen_calc.h"//Городничева
 #include "division_calc.h"//Лушина и Зайцева
 #include "functions_calc.h"// Семин
 #include "chance_calc.h"//Лушина

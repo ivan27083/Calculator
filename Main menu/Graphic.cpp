@@ -194,7 +194,7 @@ void Pokaz_graphik() {
 		}
 		else
 		{
-			multiplier = 50;
+			multiplier = 20;
 			SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, 0);
 			SDL_SetRenderDrawColor(renderer, 255, 255, 255, 0);
 			SDL_RenderClear(renderer);
@@ -205,9 +205,10 @@ void Pokaz_graphik() {
 			SDL_RenderPresent(renderer);
 			x1 = -x0 / multiplier;
 			y1 = pokaz_func(x1, a, b, c, d);
-			for (double i = -x0/ multiplier; i <= x0/multiplier; i += 1.0) {
+			for (double i = -x0/ multiplier; i <= x0/multiplier; i += 0.1) {
 				x2 = i;
 				y2 = pokaz_func(x2, a, b, c, d);
+				if (y2 > 1000) break;
 				SDL_RenderDrawLine(renderer, x0 + int(x1 * multiplier), y0 - int(y1 * multiplier), x0 + int(x2 * multiplier), y0 - int(y2 * multiplier));
 				x1 = x2;
 				y1 = y2;
@@ -417,10 +418,11 @@ void graphic()
 {
 	setlocale(LC_ALL, "Rus");
 	int q;
-	cout << "Выберите тип функции:" << endl << "1-Полиномиальная функция" << endl << "2-Степенная функция" << endl << "3-Показательная функция" << endl << "4-Логарифмическая функция" << endl << "5-Синусоидальная функция" << endl << "6-Косинусоидальная функция";
-	cin >> q;
+	
 	bool check = true;
 	do {
+		cout << "Выберите тип функции:" << endl << "1-Полиномиальная функция" << endl << "2-Степенная функция" << endl << "3-Показательная функция" << endl << "4-Логарифмическая функция" << endl << "5-Синусоидальная функция" << endl << "6-Косинусоидальная функция" << endl;
+		cin >> q;
 		switch (q) {
 		case 0: check = false; break;
 		case 1:
